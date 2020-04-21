@@ -3,7 +3,7 @@ package com.example.getitdone.database;
 import android.database.Cursor;
 import android.database.CursorWrapper;
 
-import com.example.getitdone.Models.Memory;
+import com.example.getitdone.Models.Event;
 
 import java.util.Date;
 import java.util.UUID;
@@ -14,21 +14,21 @@ public class EventCursorWrapper extends CursorWrapper {
         super(cursor);
     }
 
-    public Memory getMemory()
+    public Event getEvent()
     {
-        String uuidString = getString(getColumnIndex(EventDbSchema.MemoryTable.Cols.UUID));
-        String title = getString(getColumnIndex(EventDbSchema.MemoryTable.Cols.TITLE));
-        long date = getLong(getColumnIndex(EventDbSchema.MemoryTable.Cols.DATE));
-        int isFavorited = getInt(getColumnIndex(EventDbSchema.MemoryTable.Cols.FAVORITED));
-        byte[] pictureBytes = getBlob(getColumnIndex(EventDbSchema.MemoryTable.Cols.PICTURE));
+        String uuidString = getString(getColumnIndex(EventDbSchema.EventTable.Cols.UUID));
+        String title = getString(getColumnIndex(EventDbSchema.EventTable.Cols.TITLE));
+        long date = getLong(getColumnIndex(EventDbSchema.EventTable.Cols.DATE));
+        int isFavorited = getInt(getColumnIndex(EventDbSchema.EventTable.Cols.FAVORITED));
+        byte[] pictureBytes = getBlob(getColumnIndex(EventDbSchema.EventTable.Cols.PICTURE));
 
-        Memory memory = new Memory(UUID.fromString(uuidString));
-        memory.setTitle(title);
-        memory.setDate(new Date(date));
-        memory.setFavorited(isFavorited != 0);
-        memory.setMemoryPicture(pictureBytes);
+        Event event = new Event(UUID.fromString(uuidString));
+        event.setTitle(title);
+        event.setDate(new Date(date));
+        event.setFavorited(isFavorited != 0);
+        event.setMemoryPicture(pictureBytes);
 
-        return memory;
+        return event;
 
     }
 }

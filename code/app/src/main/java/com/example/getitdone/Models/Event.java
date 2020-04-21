@@ -6,19 +6,19 @@ import android.graphics.BitmapFactory;
 import java.util.Date;
 import java.util.UUID;
 
-public class Memory {
+public class Event {
     private UUID mId;
     private String mTitle;
     private Date mDate;
     private boolean mFavorited;
     private byte[] mMemoryPicture;
 
-    public Memory()
+    public Event()
     {
         this(UUID.randomUUID());
     }
 
-    public Memory(UUID id)
+    public Event(UUID id)
     {
         mId = id;
         mDate = new Date();

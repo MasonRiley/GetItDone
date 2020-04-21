@@ -17,8 +17,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.getitdone.Models.Memory;
-import com.example.getitdone.Models.MemoryLab;
+import com.example.getitdone.Models.Event;
+import com.example.getitdone.Models.EventLab;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +29,7 @@ public class EventListFragment extends Fragment {
 
     private class CrimeHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
-        private Memory mMemory;
+        private Event mEvent;
 
         private TextView mTitleTextView;
         private TextView mDateTextView;
@@ -46,26 +46,26 @@ public class EventListFragment extends Fragment {
             mFavorited = (ImageView) itemView.findViewById(R.id.event_favorited);
         }
 
-        public void bind(Memory memory)
+        public void bind(Event event)
         {
-            mMemory = memory;
-            mTitleTextView.setText(mMemory.getTitle());
-            mDateTextView.setText(mMemory.getDate().toString());
-            mFavorited.setVisibility(memory.isFavorited() ? View.VISIBLE : View.INVISIBLE);
+            mEvent = event;
+            mTitleTextView.setText(mEvent.getTitle());
+            mDateTextView.setText(mEvent.getDate().toString());
+            mFavorited.setVisibility(event.isFavorited() ? View.VISIBLE : View.INVISIBLE);
         }
 
         @Override
         public void onClick(View view) {
-            Intent intent = EventPagerActivity.newIntent(getActivity(), mMemory.getId());
+            Intent intent = EventPagerActivity.newIntent(getActivity(), mEvent.getId());
             startActivity(intent);
         }
     }
 
     private class CrimeAdapter extends RecyclerView.Adapter<CrimeHolder>
     {
-        private List<Memory> mMemories;
+        private List<Event> mMemories;
 
-        public CrimeAdapter(List<Memory> memories)
+        public CrimeAdapter(List<Event> memories)
         {
             mMemories = memories;
         }
@@ -80,12 +80,12 @@ public class EventListFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull CrimeHolder crimeHolder, int i) {
-            Memory memory = mMemories.get(i);
+            Event event = mMemories.get(i);
             Log.d("adapter", "Binding");
-            crimeHolder.bind(memory);
+            crimeHolder.bind(event);
         }
 
-        public void setCrimes(List<Memory> memories){
+        public void setCrimes(List<Event> memories){
             mMemories = memories;
         }
 
@@ -131,9 +131,9 @@ public class EventListFragment extends Fragment {
         switch(item.getItemId())
         {
             case R.id.new_event:
-                Memory memory = new Memory();
-                MemoryLab.get(getActivity()).addMemory(memory);
-                Intent intent = EventPagerActivity.newIntent(getActivity(), memory.getId());
+                Event event = new Event();
+                EventLab.get(getActivity()).addEvent(event);
+                Intent intent = EventPagerActivity.newIntent(getActivity(), event.getId());
                 startActivity(intent);
                 return true;
             case R.id.show_favorited:
@@ -160,8 +160,8 @@ public class EventListFragment extends Fragment {
 
     private void updateUI()
     {
-        MemoryLab memoryLab = MemoryLab.get(getActivity());
-        List<Memory> memories = memoryLab.getMemories();
+        EventLab eventLab = EventLab.get(getActivity());
+        List<Event> memories = eventLab.getEvents();
 
         if(mAdapter == null) {
             mAdapter = new CrimeAdapter(memories);
@@ -169,10 +169,10 @@ public class EventListFragment extends Fragment {
         }
         else if(sorted == true)
         {
-            List<Memory> sortedMemories = new ArrayList<>();
+            List<Event> sortedMemories = new ArrayList<>();
 
             //I would normally use a better algorithm to sort a random list
-            for(Memory c : memories)
+            for(Event c : memories)
             {
                 if(c.isFavorited() == true)
                     sortedMemories.add(c);
@@ -184,7 +184,7 @@ public class EventListFragment extends Fragment {
         }
         else
         {
-            for(Memory c : memories)
+            for(Event c : memories)
             {
                 if(c.getMemoryPicture() != null)
                     mThumbnail.setImageBitmap(c.getMemoryPicture());

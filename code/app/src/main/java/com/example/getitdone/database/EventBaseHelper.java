@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class EventBaseHelper extends SQLiteOpenHelper {
 
     private static final int VERSION = 1;
-    private static final String DATABASE_NAME = "memoryBase.db";
+    private static final String DATABASE_NAME = "phoningitin.db";
 
     public EventBaseHelper(Context context)
     {
@@ -16,13 +16,13 @@ public class EventBaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("create table " + EventDbSchema.MemoryTable.NAME + "(" +
+        sqLiteDatabase.execSQL("create table " + EventDbSchema.EventTable.NAME + "(" +
                 " _id integer primary key autoincrement, " +
-                EventDbSchema.MemoryTable.Cols.UUID + ", " +
-                EventDbSchema.MemoryTable.Cols.TITLE + ", " +
-                EventDbSchema.MemoryTable.Cols.DATE + ", " +
-                EventDbSchema.MemoryTable.Cols.FAVORITED + ", " +
-                EventDbSchema.MemoryTable.Cols.PICTURE + ")");
+                EventDbSchema.EventTable.Cols.UUID + ", " +
+                EventDbSchema.EventTable.Cols.TITLE + ", " +
+                EventDbSchema.EventTable.Cols.DATE + ", " +
+                EventDbSchema.EventTable.Cols.FAVORITED + ", " +
+                EventDbSchema.EventTable.Cols.PICTURE + ")");
     }
 
     @Override

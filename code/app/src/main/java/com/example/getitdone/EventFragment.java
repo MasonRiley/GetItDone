@@ -23,8 +23,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 
-import com.example.getitdone.Models.Memory;
-import com.example.getitdone.Models.MemoryLab;
+import com.example.getitdone.Models.Event;
+import com.example.getitdone.Models.EventLab;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Date;
@@ -34,12 +34,12 @@ import static android.app.Activity.RESULT_OK;
 
 public class EventFragment extends Fragment {
 
-    private static final String ARG_MEMORY_ID = "memory_id";
+    private static final String ARG_EVENT_ID = "event_id";
     private static final String DIALOG_DATE = "dialog_date";
     private static final int REQUEST_DATE = 0;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
 
-    private Memory mMemory;
+    private Event mEvent;
     private EditText mTitleField;
     private ImageButton mCameraButton;
     private Button mDateButton;
@@ -51,7 +51,7 @@ public class EventFragment extends Fragment {
         EventDB eb = new EventDB();
         eb.getRemoteConnection();
         Bundle args = new Bundle();
-        args.putSerializable(ARG_MEMORY_ID, crimeID);
+        args.putSerializable(ARG_EVENT_ID, crimeID);
 
         EventFragment fragment = new EventFragment();
         fragment.setArguments(args);
@@ -62,8 +62,8 @@ public class EventFragment extends Fragment {
     {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        UUID memoryId = (UUID) getArguments().getSerializable(ARG_MEMORY_ID);
-        mMemory = MemoryLab.get(getActivity()).getMemory(memoryId);
+        UUID memoryId = (UUID) getArguments().getSerializable(ARG_EVENT_ID);
+        mEvent = EventLab.get(getActivity()).getEvent(memoryId);
     }
 
     @Nullable
@@ -72,7 +72,7 @@ public class EventFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_event, container, false);
 
         mTitleField = v.findViewById(R.id.event_title);
-        mTitleField.setText(mMemory.getTitle());
+        mTitleField.setText(mEvent.getTitle());
         mTitleField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -81,19 +81,18 @@ public class EventFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                mMemory.setTitle(charSequence.toString());
+                mEvent.setTitle(charSequence.toString());
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                //yeehaw!
             }
         });
 
         /*mMemoryImageView = v.findViewById(R.id.event_picture);
-        if(mMemory.getMemoryPicture() != null)
+        if(mEvent.getMemoryPicture() != null)
         {
-            mMemoryImageView.setImageBitmap(mMemory.getMemoryPicture());
+            mMemoryImageView.setImageBitmap(mEvent.getMemoryPicture());
         }
 
         mCameraButton = v.findViewById(R.id.button_camera);
@@ -110,19 +109,19 @@ public class EventFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 FragmentManager manager = getFragmentManager();
-                DatePickerFragment dialog = DatePickerFragment.newInstance(mMemory.getDate());
+                DatePickerFragment dialog = DatePickerFragment.newInstance(mEvent.getDate());
                 dialog.setTargetFragment(EventFragment.this, REQUEST_DATE);
                 dialog.show(manager,DIALOG_DATE);
             }
         });
 
         mFavoriteSwitch = v.findViewById(R.id.event_favorited);
-        mFavoriteSwitch.setChecked(mMemory.isFavorited());
+        mFavoriteSwitch.setChecked(mEvent.isFavorited());
         mFavoriteSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                mMemory.setFavorited(b);
-                MemoryLab.get(getActivity()).updateMemory(mMemory);
+                mEvent.setFavorited(b);
+                EventLab.get(getActivity()).updateEvent(mEvent);
             }
         });
 
@@ -138,7 +137,7 @@ public class EventFragment extends Fragment {
         if(requestCode == REQUEST_DATE)
         {
             Date date = (Date) data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
-            mMemory.setDate(date);
+            mEvent.setDate(date);
             updateDate();
         }
         if(requestCode == REQUEST_IMAGE_CAPTURE) {
@@ -146,16 +145,16 @@ public class EventFragment extends Fragment {
             Bitmap b = (Bitmap) extras.get("data");
             ByteArrayOutputStream blob = new ByteArrayOutputStream();
             b.compress(Bitmap.CompressFormat.PNG, 0, blob);
-            mMemory.setMemoryPicture(blob.toByteArray());
-            mMemoryImageView.setImageBitmap(mMemory.getMemoryPicture());
-            MemoryLab.get(getActivity()).updateMemory(mMemory);
+            mEvent.setMemoryPicture(blob.toByteArray());
+            mMemoryImageView.setImageBitmap(mEvent.getMemoryPicture());
+            EventLab.get(getActivity()).updateEvent(mEvent);
         }
     }
 
     @Override
     public void onPause()
     {
-        MemoryLab.get(getActivity()).updateMemory(mMemory);
+        EventLab.get(getActivity()).updateEvent(mEvent);
         super.onPause();
     }
 
@@ -171,7 +170,7 @@ public class EventFragment extends Fragment {
     }
 
     private void updateDate() {
-        mDateButton.setText(mMemory.getDate().toString());
+        mDateButton.setText(mEvent.getDate().toString());
     }
 
     @Override
@@ -185,7 +184,7 @@ public class EventFragment extends Fragment {
         switch(item.getItemId())
         {
             case R.id.delete_event:
-                MemoryLab.get(getActivity()).deleteMemory(mMemory);
+                EventLab.get(getActivity()).deleteEvent(mEvent);
                 getActivity().finish();
                 return true;
             default:
