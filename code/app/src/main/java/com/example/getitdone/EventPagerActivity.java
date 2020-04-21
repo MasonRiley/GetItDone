@@ -9,8 +9,8 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.getitdone.Models.Memory;
-import com.example.getitdone.Models.MemoryLab;
+import com.example.getitdone.Models.Event;
+import com.example.getitdone.Models.EventLab;
 
 import java.util.List;
 import java.util.UUID;
@@ -20,7 +20,7 @@ public class EventPagerActivity extends AppCompatActivity {
     private static final String EXTRA_CRIME_ID = "crime_id";
 
     private ViewPager mViewPager;
-    private List<Memory> mMemories;
+    private List<Event> mMemories;
 
     public static Intent newIntent(Context packageContext, UUID crimeId){
         Intent intent = new Intent(packageContext, EventPagerActivity.class);
@@ -37,13 +37,13 @@ public class EventPagerActivity extends AppCompatActivity {
         UUID crimeId = (UUID) getIntent().getSerializableExtra(EXTRA_CRIME_ID);
 
         mViewPager = (ViewPager) findViewById(R.id.event_view_pager);
-        mMemories = MemoryLab.get(this).getMemories();
+        mMemories = EventLab.get(this).getEvents();
         FragmentManager fragmentManager = getSupportFragmentManager();
         mViewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
             @Override
             public Fragment getItem(int position) {
-                Memory memory = mMemories.get(position);
-                return EventFragment.newInstance(memory.getId());
+                Event event = mMemories.get(position);
+                return EventFragment.newInstance(event.getId());
             }
 
             @Override

@@ -1,8 +1,8 @@
 package com.example.getitdone.database;
 
 public class EventDbSchema {
-    public static final class MemoryTable {
-        public static final String NAME = "memories";
+    public static final class EventTable {
+        public static final String NAME = "events";
 
         public static final class Cols {
             public static final String UUID = "uuid";
