@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Get it Done</string>
+    <string name="event_title_hint">Enter a title for the event.</string>
+    <string name="event_title_label">TITLE OF THE EVENT</string>
+    <string name="event_details_label">Details</string>
+    <string name="event_alert_label">Alert Me</string>
+    <string name="date_picker_title">Date of event:</string>
+    <string name="new_event">New Event</string>
+    <string name="delete_event">Delete Event</string>
+    <string name="event_description_hint">Enter a task for the event.</string>
+    <string name="event_description_label">TASKS</string>
+    <string name="event_description_hint2">...</string>
+</resources>
