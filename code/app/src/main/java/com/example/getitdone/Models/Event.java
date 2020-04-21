@@ -12,6 +12,9 @@ public class Event {
     private Date mDate;
     private boolean mFavorited;
     private byte[] mMemoryPicture;
+    private String mTask1;
+    private String mTask2;
+    private String mTask3;
 
     public Event()
     {
@@ -22,6 +25,30 @@ public class Event {
     {
         mId = id;
         mDate = new Date();
+    }
+
+    public String getTask1() {
+        return mTask1;
+    }
+
+    public void setTask1(String task1) {
+        mTask1 = task1;
+    }
+
+    public String getTask2() {
+        return mTask2;
+    }
+
+    public void setTask2(String task2) {
+        mTask2 = task2;
+    }
+
+    public String getTask3() {
+        return mTask3;
+    }
+
+    public void setTask3(String task3) {
+        mTask3 = task3;
     }
 
     public String getTitle() {

@@ -45,6 +45,9 @@ public class EventFragment extends Fragment {
     private Button mDateButton;
     private Switch mFavoriteSwitch;
     private ImageView mMemoryImageView;
+    private EditText mTask1;
+    private EditText mTask2;
+    private EditText mTask3;
 
     public static EventFragment newInstance(UUID crimeID)
     {
@@ -122,6 +125,60 @@ public class EventFragment extends Fragment {
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 mEvent.setFavorited(b);
                 EventLab.get(getActivity()).updateEvent(mEvent);
+            }
+        });
+
+        mTask1 = v.findViewById(R.id.event_description);
+        mTask1.setText(mEvent.getTask1());
+        mTask1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                //this is useless
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                mEvent.setTask1(charSequence.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+
+        mTask2 = v.findViewById(R.id.event_description2);
+        mTask2.setText(mEvent.getTask2());
+        mTask2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                //this is useless
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                mEvent.setTask2(charSequence.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+
+        mTask3 = v.findViewById(R.id.event_description3);
+        mTask3.setText(mEvent.getTask3());
+        mTask3.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                //this is useless
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                mEvent.setTask3(charSequence.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
             }
         });
 

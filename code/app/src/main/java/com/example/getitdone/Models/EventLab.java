@@ -108,6 +108,9 @@ public class EventLab {
         values.put(EventTable.Cols.DATE, event.getDate().getTime());
         values.put(EventTable.Cols.FAVORITED, event.isFavorited() ? 1 : 0);
         values.put(EventTable.Cols.PICTURE, event.getMemoryPictureBytes());
+        values.put(EventTable.Cols.TASK1, event.getTask1());
+        values.put(EventTable.Cols.TASK2, event.getTask2());
+        values.put(EventTable.Cols.TASK3, event.getTask3());
 
         return values;
     }
