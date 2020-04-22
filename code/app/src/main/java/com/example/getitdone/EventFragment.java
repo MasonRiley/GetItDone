@@ -92,7 +92,7 @@ public class EventFragment extends Fragment {
             }
         });
 
-        /*mMemoryImageView = v.findViewById(R.id.event_picture);
+        mMemoryImageView = v.findViewById(R.id.event_picture);
         if(mEvent.getMemoryPicture() != null)
         {
             mMemoryImageView.setImageBitmap(mEvent.getMemoryPicture());
@@ -104,7 +104,7 @@ public class EventFragment extends Fragment {
             public void onClick(View v) {
                 dispatchTakePictureIntent();
             }
-        });*/
+        });
 
         mDateButton = v.findViewById(R.id.event_date);
         updateDate();

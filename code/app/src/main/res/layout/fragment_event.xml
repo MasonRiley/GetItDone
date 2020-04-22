@@ -104,6 +104,7 @@
         android:layout_marginTop="16dp"
         android:hint="@string/event_title_hint"
         android:textColor="@color/colorWhite"
+        android:textColorHint="@color/colorWhite"
         app:layout_constraintEnd_toEndOf="@+id/textView"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -133,6 +134,7 @@
 
     <Switch
         android:id="@+id/event_favorited"
+        android:textColor="@color/colorWhite"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="300dp"
@@ -144,6 +146,25 @@
         tools:layout_conversion_absoluteWidth="395dp"
         tools:layout_conversion_wrapHeight="50"
         tools:layout_conversion_wrapWidth="181" />
+
+    <ImageView
+        android:id="@+id/event-picture"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintStart_toEndOf="@+id/event_title"
+        app:layout_constraintTop_toBottomOf="@+id/event_favorited"
+        app:layout_constraintVertical_bias="0.47" />
+
+    <ImageButton
+        android:id="@+id/button-camera"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/event-picture" />
 
 
 
