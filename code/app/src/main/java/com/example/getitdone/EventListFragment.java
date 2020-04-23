@@ -61,11 +61,11 @@ public class EventListFragment extends Fragment {
         }
     }
 
-    private class CrimeAdapter extends RecyclerView.Adapter<EventHolder>
+    private class EventAdapter extends RecyclerView.Adapter<EventHolder>
     {
         private List<Event> mMemories;
 
-        public CrimeAdapter(List<Event> memories)
+        public EventAdapter(List<Event> memories)
         {
             mMemories = memories;
         }
@@ -85,7 +85,7 @@ public class EventListFragment extends Fragment {
             eventHolder.bind(event);
         }
 
-        public void setCrimes(List<Event> memories){
+        public void setEvents(List<Event> memories){
             mMemories = memories;
         }
 
@@ -96,8 +96,8 @@ public class EventListFragment extends Fragment {
     }
 
     private boolean sorted = false;
-    private RecyclerView mCrimeRecyclerView;
-    private CrimeAdapter mAdapter;
+    private RecyclerView mEventRecyclerView;
+    private EventAdapter mAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -110,8 +110,8 @@ public class EventListFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_event_list, container, false);
-        mCrimeRecyclerView = (RecyclerView) v.findViewById(R.id.event_recycler_view);
-        mCrimeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mEventRecyclerView = (RecyclerView) v.findViewById(R.id.event_recycler_view);
+        mEventRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         boolean sorted = false;
 
@@ -164,8 +164,8 @@ public class EventListFragment extends Fragment {
         List<Event> memories = eventLab.getEvents();
 
         if(mAdapter == null) {
-            mAdapter = new CrimeAdapter(memories);
-            mCrimeRecyclerView.setAdapter(mAdapter);
+            mAdapter = new EventAdapter(memories);
+            mEventRecyclerView.setAdapter(mAdapter);
         }
         else if(sorted == true)
         {
@@ -179,7 +179,7 @@ public class EventListFragment extends Fragment {
                 if(c.isFavorited() == true && c.getMemoryPicture() != null)
                     mThumbnail.setImageBitmap(c.getMemoryPicture());
             }
-            mAdapter.setCrimes(sortedMemories);
+            mAdapter.setEvents(sortedMemories);
             mAdapter.notifyDataSetChanged();
         }
         else
@@ -189,7 +189,7 @@ public class EventListFragment extends Fragment {
                 if(c.getMemoryPicture() != null)
                     mThumbnail.setImageBitmap(c.getMemoryPicture());
             }
-            mAdapter.setCrimes(memories);
+            mAdapter.setEvents(memories);
             mAdapter.notifyDataSetChanged();
         }
     }
