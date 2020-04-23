@@ -27,7 +27,7 @@ public class EventListFragment extends Fragment {
 
     private ImageView mThumbnail;
 
-    private class CrimeHolder extends RecyclerView.ViewHolder implements View.OnClickListener
+    private class EventHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
         private Event mEvent;
 
@@ -35,14 +35,14 @@ public class EventListFragment extends Fragment {
         private TextView mDateTextView;
         private ImageView mFavorited;
 
-        public CrimeHolder(LayoutInflater inflater, ViewGroup parent)
+        public EventHolder(LayoutInflater inflater, ViewGroup parent)
         {
             super(inflater.inflate(R.layout.list_item_event, parent, false));
             itemView.setOnClickListener(this);
 
             mTitleTextView = (TextView) itemView.findViewById(R.id.event_title);
             mDateTextView = (TextView) itemView.findViewById(R.id.event_date);
-            //mThumbnail = (ImageView) itemView.findViewById(R.id.event_thumbnail);
+            mThumbnail = (ImageView) itemView.findViewById(R.id.event_picture);
             mFavorited = (ImageView) itemView.findViewById(R.id.event_favorited);
         }
 
@@ -61,7 +61,7 @@ public class EventListFragment extends Fragment {
         }
     }
 
-    private class CrimeAdapter extends RecyclerView.Adapter<CrimeHolder>
+    private class CrimeAdapter extends RecyclerView.Adapter<EventHolder>
     {
         private List<Event> mMemories;
 
@@ -72,17 +72,17 @@ public class EventListFragment extends Fragment {
 
         @NonNull
         @Override
-        public CrimeHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        public EventHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
             Log.d("adapter", "Creating");
-            return new CrimeHolder(layoutInflater, parent);
+            return new EventHolder(layoutInflater, parent);
         }
 
         @Override
-        public void onBindViewHolder(@NonNull CrimeHolder crimeHolder, int i) {
+        public void onBindViewHolder(@NonNull EventHolder eventHolder, int i) {
             Event event = mMemories.get(i);
             Log.d("adapter", "Binding");
-            crimeHolder.bind(event);
+            eventHolder.bind(event);
         }
 
         public void setCrimes(List<Event> memories){
