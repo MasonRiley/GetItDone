@@ -8,19 +8,19 @@ import java.util.UUID;
 
 public class EventActivity extends SingleFragmentActivity {
 
-    private static final String EXTRA_CRIME_ID = "crime_id";
+    private static final String EXTRA_EVENT_ID = "event_id";
 
     @Override
     public Fragment createFragment() {
-        UUID crimeId = (UUID) getIntent().getSerializableExtra(EXTRA_CRIME_ID);
+        UUID eventId = (UUID) getIntent().getSerializableExtra(EXTRA_EVENT_ID);
 
-        return EventFragment.newInstance(crimeId);
+        return EventFragment.newInstance(eventId);
     }
 
-    public static Intent newIntent(Context packageContext, UUID memoryId)
+    public static Intent newIntent(Context packageContext, UUID eventId)
     {
         Intent intent = new Intent(packageContext, EventActivity.class);
-        intent.putExtra(EXTRA_CRIME_ID, memoryId);
+        intent.putExtra(EXTRA_EVENT_ID, eventId);
         return intent;
     }
 }

@@ -9,7 +9,7 @@
         android:title="@string/new_event"
         app:showAsAction="ifRoom|withText" />
     <item
-        android:id="@+id/show_favorited"
+        android:id="@+id/show_alerted"
         android:icon="@drawable/ic_full_star"
         android:title="@string/new_event"
         app:showAsAction="ifRoom|withText" />

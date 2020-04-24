@@ -43,18 +43,18 @@ public class EventFragment extends Fragment {
     private EditText mTitleField;
     private ImageButton mCameraButton;
     private Button mDateButton;
-    private Switch mFavoriteSwitch;
-    private ImageView mMemoryImageView;
+    private Switch mAlertSwitch;
+    private ImageView mEventImageView;
     private EditText mTask1;
     private EditText mTask2;
     private EditText mTask3;
 
-    public static EventFragment newInstance(UUID crimeID)
+    public static EventFragment newInstance(UUID eventID)
     {
         EventDB eb = new EventDB();
         eb.getRemoteConnection();
         Bundle args = new Bundle();
-        args.putSerializable(ARG_EVENT_ID, crimeID);
+        args.putSerializable(ARG_EVENT_ID, eventID);
 
         EventFragment fragment = new EventFragment();
         fragment.setArguments(args);
@@ -65,8 +65,8 @@ public class EventFragment extends Fragment {
     {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        UUID memoryId = (UUID) getArguments().getSerializable(ARG_EVENT_ID);
-        mEvent = EventLab.get(getActivity()).getEvent(memoryId);
+        UUID eventId = (UUID) getArguments().getSerializable(ARG_EVENT_ID);
+        mEvent = EventLab.get(getActivity()).getEvent(eventId);
     }
 
     @Nullable
@@ -92,10 +92,10 @@ public class EventFragment extends Fragment {
             }
         });
 
-        mMemoryImageView = v.findViewById(R.id.event_picture);
+        mEventImageView = v.findViewById(R.id.event_picture);
         if(mEvent.getMemoryPicture() != null)
         {
-            mMemoryImageView.setImageBitmap(mEvent.getMemoryPicture());
+            mEventImageView.setImageBitmap(mEvent.getMemoryPicture());
         }
 
         mCameraButton = v.findViewById(R.id.button_camera);
@@ -118,9 +118,9 @@ public class EventFragment extends Fragment {
             }
         });
 
-        mFavoriteSwitch = v.findViewById(R.id.event_favorited);
-        mFavoriteSwitch.setChecked(mEvent.isFavorited());
-        mFavoriteSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        mAlertSwitch = v.findViewById(R.id.event_favorited);
+        mAlertSwitch.setChecked(mEvent.isFavorited());
+        mAlertSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 mEvent.setFavorited(b);
@@ -203,7 +203,7 @@ public class EventFragment extends Fragment {
             ByteArrayOutputStream blob = new ByteArrayOutputStream();
             b.compress(Bitmap.CompressFormat.PNG, 0, blob);
             mEvent.setMemoryPicture(blob.toByteArray());
-            mMemoryImageView.setImageBitmap(mEvent.getMemoryPicture());
+            mEventImageView.setImageBitmap(mEvent.getMemoryPicture());
             EventLab.get(getActivity()).updateEvent(mEvent);
         }
     }

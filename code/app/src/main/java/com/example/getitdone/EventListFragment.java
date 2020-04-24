@@ -63,11 +63,11 @@ public class EventListFragment extends Fragment {
 
     private class EventAdapter extends RecyclerView.Adapter<EventHolder>
     {
-        private List<Event> mMemories;
+        private List<Event> mEvents;
 
-        public EventAdapter(List<Event> memories)
+        public EventAdapter(List<Event> events)
         {
-            mMemories = memories;
+            mEvents = events;
         }
 
         @NonNull
@@ -80,18 +80,18 @@ public class EventListFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull EventHolder eventHolder, int i) {
-            Event event = mMemories.get(i);
+            Event event = mEvents.get(i);
             Log.d("adapter", "Binding");
             eventHolder.bind(event);
         }
 
-        public void setEvents(List<Event> memories){
-            mMemories = memories;
+        public void setEvents(List<Event> events){
+            mEvents = events;
         }
 
         @Override
         public int getItemCount() {
-            return mMemories.size();
+            return mEvents.size();
         }
     }
 
@@ -136,7 +136,7 @@ public class EventListFragment extends Fragment {
                 Intent intent = EventPagerActivity.newIntent(getActivity(), event.getId());
                 startActivity(intent);
                 return true;
-            case R.id.show_favorited:
+            case R.id.show_alerted:
                 sorted = true;
                 updateUI();
                 return true;
@@ -161,10 +161,10 @@ public class EventListFragment extends Fragment {
     private void updateUI()
     {
         EventLab eventLab = EventLab.get(getActivity());
-        List<Event> memories = eventLab.getEvents();
+        List<Event> events = eventLab.getEvents();
 
         if(mAdapter == null) {
-            mAdapter = new EventAdapter(memories);
+            mAdapter = new EventAdapter(events);
             mEventRecyclerView.setAdapter(mAdapter);
         }
         else if(sorted == true)
@@ -172,7 +172,8 @@ public class EventListFragment extends Fragment {
             List<Event> sortedMemories = new ArrayList<>();
 
             //I would normally use a better algorithm to sort a random list
-            for(Event c : memories)
+
+            for(Event c : events)
             {
                 if(c.isFavorited() == true)
                     sortedMemories.add(c);
@@ -184,12 +185,7 @@ public class EventListFragment extends Fragment {
         }
         else
         {
-            for(Event c : memories)
-            {
-                if(c.getMemoryPicture() != null)
-                    mThumbnail.setImageBitmap(c.getMemoryPicture());
-            }
-            mAdapter.setEvents(memories);
+            mAdapter.setEvents(events);
             mAdapter.notifyDataSetChanged();
         }
     }
