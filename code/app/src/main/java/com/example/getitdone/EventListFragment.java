@@ -172,6 +172,7 @@ public class EventListFragment extends Fragment {
             List<Event> sortedMemories = new ArrayList<>();
 
             //I would normally use a better algorithm to sort a random list
+
             for(Event c : events)
             {
                 if(c.isFavorited() == true)
@@ -184,11 +185,6 @@ public class EventListFragment extends Fragment {
         }
         else
         {
-            for(Event c : events)
-            {
-                if(c.getMemoryPicture() != null)
-                    mThumbnail.setImageBitmap(c.getMemoryPicture());
-            }
             mAdapter.setEvents(events);
             mAdapter.notifyDataSetChanged();
         }
